@@ -1,14 +1,15 @@
-// version 1.0
+// version 4.0
 //author megha kadiyala
 //usecase 1: Welcome Page
 //usecase2: Palindrome Check using String reverse
 //usecase3: Character Array Based Palindrome Check
+//Usecase4: UC4-CharacterArrayBasedPalindromeCheck
 import java.util.Scanner;
 public class UseCase4PalindromeChecker
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println(" UC4: Palindrome Check (Character Array Method) ");
+        System.out.println(" UC4: UC4-CharacterArrayBasedPalindromeCheck) ");
         System.out.print("Enter a word or sentence: ");
         String input = scanner.nextLine();
 
