@@ -6,30 +6,30 @@
 //Usecase4: UC4-CharacterArrayBasedPalindromeCheck
 import java.util.Scanner;
 public class UseCase4PalindromeChecker
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
 
-        System.out.println(" UC4: UC4-CharacterArrayBasedPalindromeCheck)  ");
-        System.out.print("Enter a word or sentence: ");
-        String input = scanner.nextLine();
+    System.out.println(" UC4: UC4-CharacterArrayBasedPalindromeCheck)  ");
+    System.out.print("Enter a word or sentence: ");
+    String input = scanner.nextLine();
 
-        char[] characters = input.toCharArray();
-        int left = 0;
-        int right = characters.length - 1;
-        boolean isPalindrome = true;
-        while (left < right) {
-            if (characters[left] != characters[right]) {
-                isPalindrome = false;
-                break;
-            }
-            left++;
-            right--;
+    char[] characters = input.toCharArray();
+    int left = 0;
+    int right = characters.length - 1;
+    boolean isPalindrome = true;
+    while (left < right) {
+        if (characters[left] != characters[right]) {
+            isPalindrome = false;
+            break;
         }
-        if (isPalindrome) {
-            System.out.println("Result: \"" + input + "\" is a PALINDROME.");
-        } else {
-            System.out.println("Result: \"" + input + "\" is NOT a palindrome.");
-        }
-        scanner.close();
+        left++;
+        right--;
     }
+    if (isPalindrome) {
+        System.out.println("Result: \"" + input + "\" is a PALINDROME.");
+    } else {
+        System.out.println("Result: \"" + input + "\" is NOT a palindrome.");
+    }
+    scanner.close();
+}
 }
