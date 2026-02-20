@@ -8,7 +8,7 @@ public class UseCase4PalindromeChecker
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("=== UC4: Palindrome Check (Character Array Method) ===");
+        System.out.println(" UC4: Palindrome Check (Character Array Method) ");
         System.out.print("Enter a word or sentence: ");
         String input = scanner.nextLine();
 
