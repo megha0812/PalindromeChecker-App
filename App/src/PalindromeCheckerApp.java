@@ -1,31 +1,86 @@
-// version 7.0
+// version 8.0
 //author megha kadiyala
 //usecase 1: Welcome Page
 //usecase 2: Check Hardcoded String for Palindrome
 //usecase 3: Palindrome Check using String Reverse
-//usecase 7: Deque-Based Optimized Palindrome Checker
-import java.util.ArrayDeque;
-import java.util.Deque;
+//usecase 8: Linked List Based Palindrome Checker
 import java.util.Scanner;
 
-public class DequePalindrome {
+class Node {
+    char data;
+    Node next;
 
-    public static boolean isPalindrome(String str) {
+    Node(char data) {
+        this.data = data;
+        this.next = null;
+    }
+}
 
-        Deque<Character> deque = new ArrayDeque<>();
+public class LinkedListPalindrome {
+
+    public static Node createList(String str) {
+
+        Node head = null, tail = null;
 
         for (int i = 0; i < str.length(); i++) {
-            deque.addLast(str.charAt(i));
+
+            Node newNode = new Node(str.charAt(i));
+
+            if (head == null) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
+            }
         }
 
-        while (deque.size() > 1) {
+        return head;
+    }
 
-            char front = deque.removeFirst();
-            char rear = deque.removeLast();
+    public static Node reverse(Node head) {
 
-            if (front != rear) {
+        Node prev = null;
+        Node current = head;
+
+        while (current != null) {
+
+            Node next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+
+        return prev;
+    }
+
+    public static boolean isPalindrome(Node head) {
+
+        if (head == null || head.next == null) {
+            return true;
+        }
+
+        Node slow = head;
+        Node fast = head;
+
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        Node secondHalf = reverse(slow.next);
+
+        Node firstHalf = head;
+        Node temp = secondHalf;
+
+        while (temp != null) {
+
+            if (firstHalf.data != temp.data) {
                 return false;
             }
+
+            firstHalf = firstHalf.next;
+            temp = temp.next;
         }
 
         return true;
@@ -34,10 +89,13 @@ public class DequePalindrome {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
+
         System.out.print("Enter a string: ");
         String input = sc.nextLine();
 
-        if (isPalindrome(input)) {
+        Node head = createList(input);
+
+        if (isPalindrome(head)) {
             System.out.println("Palindrome");
         } else {
             System.out.println("Not a Palindrome");
