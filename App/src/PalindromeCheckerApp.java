@@ -1,47 +1,82 @@
-// version 11.0
+// version 12.0
 //author megha kadiyala
 //usecase 1: Welcome Page
 //usecase 2: Check Hardcoded String for Palindrome
 //usecase 3: Palindrome Check using String Reverse
-//usecase 11: Object-Oriented Palindrome Service
-import java.util.Scanner;
+//usecase 12: Strategy Pattern for Palindrome Algorithms
+import java.util.*;
 
-class PalindromeChecker {
+interface PalindromeStrategy {
+    boolean check(String str);
+}
 
-    public boolean checkPalindrome(String str) {
+class StackStrategy implements PalindromeStrategy {
 
-        int start = 0;
-        int end = str.length() - 1;
+    public boolean check(String str) {
 
-        while (start < end) {
+        Stack<Character> stack = new Stack<>();
 
-            if (str.charAt(start) != str.charAt(end)) {
+        for (char c : str.toCharArray()) {
+            stack.push(c);
+        }
+
+        for (char c : str.toCharArray()) {
+            if (c != stack.pop()) {
                 return false;
             }
-
-            start++;
-            end--;
         }
 
         return true;
     }
 }
 
-public class OOPPalindrome {
+class DequeStrategy implements PalindromeStrategy {
+
+    public boolean check(String str) {
+
+        Deque<Character> deque = new ArrayDeque<>();
+
+        for (char c : str.toCharArray()) {
+            deque.addLast(c);
+        }
+
+        while (deque.size() > 1) {
+
+            if (deque.removeFirst() != deque.removeLast()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
+
+public class StrategyPalindrome {
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter a string: ");
+        System.out.print("Enter string: ");
         String input = sc.nextLine();
 
-        PalindromeChecker checker = new PalindromeChecker();
+        System.out.println("Choose Strategy: 1.Stack 2.Deque");
+        int choice = sc.nextInt();
 
-        if (checker.checkPalindrome(input)) {
+        PalindromeStrategy strategy;
+
+        if (choice == 1) {
+            strategy = new StackStrategy();
+        } else {
+            strategy = new DequeStrategy();
+        }
+
+        boolean result = strategy.check(input);
+
+        if (result) {
             System.out.println("Palindrome");
         } else {
-            System.out.println("Not a Palindrome");
+            System.out.println("Not Palindrome");
         }
 
         sc.close();
