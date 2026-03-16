@@ -1,15 +1,14 @@
-// version 10.0
+// version 11.0
 //author megha kadiyala
 //usecase 1: Welcome Page
 //usecase 2: Check Hardcoded String for Palindrome
 //usecase 3: Palindrome Check using String Reverse
-//usecase 10: Case-Insensitive & Space-Ignored Palindrome
+//usecase 11: Object-Oriented Palindrome Service
 import java.util.Scanner;
-public class IgnoreCaseSpacePalindrome {
-    public static boolean isPalindrome(String str) {
 
-        str = str.toLowerCase();
-        str = str.replaceAll("[^a-z0-9]", "");
+class PalindromeChecker {
+
+    public boolean checkPalindrome(String str) {
 
         int start = 0;
         int end = str.length() - 1;
@@ -23,16 +22,23 @@ public class IgnoreCaseSpacePalindrome {
             start++;
             end--;
         }
+
         return true;
     }
+}
+
+public class OOPPalindrome {
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter a sentence: ");
+        System.out.print("Enter a string: ");
         String input = sc.nextLine();
 
-        if (isPalindrome(input)) {
+        PalindromeChecker checker = new PalindromeChecker();
+
+        if (checker.checkPalindrome(input)) {
             System.out.println("Palindrome");
         } else {
             System.out.println("Not a Palindrome");
