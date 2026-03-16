@@ -1,24 +1,106 @@
-// version 3.0
+// version 8.0
 //author megha kadiyala
 //usecase 1: Welcome Page
 //usecase 2: Check Hardcoded String for Palindrome
 //usecase 3: Palindrome Check using String Reverse
+//usecase 8: Linked List Based Palindrome Checker
 import java.util.Scanner;
-public class UseCase3PalindromeChecker {
+
+class Node {
+    char data;
+    Node next;
+
+    Node(char data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class LinkedListPalindrome {
+
+    public static Node createList(String str) {
+
+        Node head = null, tail = null;
+
+        for (int i = 0; i < str.length(); i++) {
+
+            Node newNode = new Node(str.charAt(i));
+
+            if (head == null) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
+            }
+        }
+
+        return head;
+    }
+
+    public static Node reverse(Node head) {
+
+        Node prev = null;
+        Node current = head;
+
+        while (current != null) {
+
+            Node next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+
+        return prev;
+    }
+
+    public static boolean isPalindrome(Node head) {
+
+        if (head == null || head.next == null) {
+            return true;
+        }
+
+        Node slow = head;
+        Node fast = head;
+
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        Node secondHalf = reverse(slow.next);
+
+        Node firstHalf = head;
+        Node temp = secondHalf;
+
+        while (temp != null) {
+
+            if (firstHalf.data != temp.data) {
+                return false;
+            }
+
+            firstHalf = firstHalf.next;
+            temp = temp.next;
+        }
+
+        return true;
+    }
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("=== UC3: Palindrome Check (String Reverse Method) ===");
-        System.out.print("Enter a word or sentence: ");
-        String original = scanner.nextLine();
-        String reversed = "";
-        for (int i = original.length() - 1; i >= 0; i--) {
-            reversed += original.charAt(i);   // String concatenation
-        }
-        if (original.equals(reversed)) {
-            System.out.println("Result: \"" + original + "\" is a PALINDROME.");
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a string: ");
+        String input = sc.nextLine();
+
+        Node head = createList(input);
+
+        if (isPalindrome(head)) {
+            System.out.println("Palindrome");
         } else {
-            System.out.println("Result: \"" + original + "\" is NOT a palindrome.");
+            System.out.println("Not a Palindrome");
         }
-        scanner.close();
+
+        sc.close();
     }
 }
