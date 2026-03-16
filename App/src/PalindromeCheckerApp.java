@@ -1,24 +1,32 @@
-// version 3.0
+// version 5.0
 //author megha kadiyala
 //usecase 1: Welcome Page
 //usecase 2: Check Hardcoded String for Palindrome
 //usecase 3: Palindrome Check using String Reverse
-import java.util.Scanner;
-public class UseCase3PalindromeChecker {
+//usecase 5:  Stack-Based Palindrome Checker
+import java.util.Stack;
+
+public class UC5StackPalindrome {
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("=== UC3: Palindrome Check (String Reverse Method) ===");
-        System.out.print("Enter a word or sentence: ");
-        String original = scanner.nextLine();
+
+        String word = "madam";
+        Stack<Character> stack = new Stack<>();
+
+        for (int i = 0; i < word.length(); i++) {
+            stack.push(word.charAt(i));
+        }
+
         String reversed = "";
-        for (int i = original.length() - 1; i >= 0; i--) {
-            reversed += original.charAt(i);   // String concatenation
+
+        while (!stack.isEmpty()) {
+            reversed = reversed + stack.pop();
         }
-        if (original.equals(reversed)) {
-            System.out.println("Result: \"" + original + "\" is a PALINDROME.");
+
+        if (word.equals(reversed)) {
+            System.out.println("It is a Palindrome");
         } else {
-            System.out.println("Result: \"" + original + "\" is NOT a palindrome.");
+            System.out.println("Not a Palindrome");
         }
-        scanner.close();
     }
 }
