@@ -1,24 +1,43 @@
-// version 3.0
+// version 10.0
 //author megha kadiyala
 //usecase 1: Welcome Page
 //usecase 2: Check Hardcoded String for Palindrome
 //usecase 3: Palindrome Check using String Reverse
+//usecase 10: Case-Insensitive & Space-Ignored Palindrome
 import java.util.Scanner;
-public class UseCase3PalindromeChecker {
+public class IgnoreCaseSpacePalindrome {
+    public static boolean isPalindrome(String str) {
+
+        str = str.toLowerCase();
+        str = str.replaceAll("[^a-z0-9]", "");
+
+        int start = 0;
+        int end = str.length() - 1;
+
+        while (start < end) {
+
+            if (str.charAt(start) != str.charAt(end)) {
+                return false;
+            }
+
+            start++;
+            end--;
+        }
+        return true;
+    }
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("=== UC3: Palindrome Check (String Reverse Method) ===");
-        System.out.print("Enter a word or sentence: ");
-        String original = scanner.nextLine();
-        String reversed = "";
-        for (int i = original.length() - 1; i >= 0; i--) {
-            reversed += original.charAt(i);   // String concatenation
-        }
-        if (original.equals(reversed)) {
-            System.out.println("Result: \"" + original + "\" is a PALINDROME.");
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a sentence: ");
+        String input = sc.nextLine();
+
+        if (isPalindrome(input)) {
+            System.out.println("Palindrome");
         } else {
-            System.out.println("Result: \"" + original + "\" is NOT a palindrome.");
+            System.out.println("Not a Palindrome");
         }
-        scanner.close();
+
+        sc.close();
     }
 }
