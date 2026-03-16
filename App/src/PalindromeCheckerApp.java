@@ -1,89 +1,24 @@
-// version 8.0
+// version 9.0
 //author megha kadiyala
 //usecase 1: Welcome Page
 //usecase 2: Check Hardcoded String for Palindrome
 //usecase 3: Palindrome Check using String Reverse
-//usecase 8: Linked List Based Palindrome Checker
+//usecase 9: Recursive Palindrome Checker
 import java.util.Scanner;
 
-class Node {
-    char data;
-    Node next;
+public class RecursivePalindrome {
 
-    Node(char data) {
-        this.data = data;
-        this.next = null;
-    }
-}
+    public static boolean isPalindrome(String str, int start, int end) {
 
-public class LinkedListPalindrome {
-
-    public static Node createList(String str) {
-
-        Node head = null, tail = null;
-
-        for (int i = 0; i < str.length(); i++) {
-
-            Node newNode = new Node(str.charAt(i));
-
-            if (head == null) {
-                head = newNode;
-                tail = newNode;
-            } else {
-                tail.next = newNode;
-                tail = newNode;
-            }
-        }
-
-        return head;
-    }
-
-    public static Node reverse(Node head) {
-
-        Node prev = null;
-        Node current = head;
-
-        while (current != null) {
-
-            Node next = current.next;
-            current.next = prev;
-            prev = current;
-            current = next;
-        }
-
-        return prev;
-    }
-
-    public static boolean isPalindrome(Node head) {
-
-        if (head == null || head.next == null) {
+        if (start >= end) {
             return true;
         }
 
-        Node slow = head;
-        Node fast = head;
-
-        while (fast.next != null && fast.next.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
+        if (str.charAt(start) != str.charAt(end)) {
+            return false;
         }
 
-        Node secondHalf = reverse(slow.next);
-
-        Node firstHalf = head;
-        Node temp = secondHalf;
-
-        while (temp != null) {
-
-            if (firstHalf.data != temp.data) {
-                return false;
-            }
-
-            firstHalf = firstHalf.next;
-            temp = temp.next;
-        }
-
-        return true;
+        return isPalindrome(str, start + 1, end - 1);
     }
 
     public static void main(String[] args) {
@@ -93,9 +28,9 @@ public class LinkedListPalindrome {
         System.out.print("Enter a string: ");
         String input = sc.nextLine();
 
-        Node head = createList(input);
+        boolean result = isPalindrome(input, 0, input.length() - 1);
 
-        if (isPalindrome(head)) {
+        if (result) {
             System.out.println("Palindrome");
         } else {
             System.out.println("Not a Palindrome");
