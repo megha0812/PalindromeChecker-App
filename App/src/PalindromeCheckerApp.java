@@ -1,45 +1,48 @@
-// version 6.0
+// version 7.0
 //author megha kadiyala
 //usecase 1: Welcome Page
 //usecase 2: Check Hardcoded String for Palindrome
 //usecase 3: Palindrome Check using String Reverse
-//usecase 6: Queue + Stack Based Palindrome Check
-import java.util.Stack;
-import java.util.Queue;
-import java.util.LinkedList;
+//usecase 7: Deque-Based Optimized Palindrome Checker
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Scanner;
 
-public class UC6QueueStackPalindrome {
+public class DequePalindrome {
 
-    public static void main(String[] args) {
+    public static boolean isPalindrome(String str) {
 
-        String word = "madam";
+        Deque<Character> deque = new ArrayDeque<>();
 
-        Stack<Character> stack = new Stack<>();
-        Queue<Character> queue = new LinkedList<>();
-
-        for (int i = 0; i < word.length(); i++) {
-            char ch = word.charAt(i);
-            stack.push(ch);
-            queue.add(ch);
+        for (int i = 0; i < str.length(); i++) {
+            deque.addLast(str.charAt(i));
         }
 
-        boolean isPalindrome = true;
+        while (deque.size() > 1) {
 
-        while (!stack.isEmpty()) {
+            char front = deque.removeFirst();
+            char rear = deque.removeLast();
 
-            char fromStack = stack.pop();
-            char fromQueue = queue.remove();
-
-            if (fromStack != fromQueue) {
-                isPalindrome = false;
-                break;
+            if (front != rear) {
+                return false;
             }
         }
 
-        if (isPalindrome) {
-            System.out.println("It is a Palindrome");
+        return true;
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String input = sc.nextLine();
+
+        if (isPalindrome(input)) {
+            System.out.println("Palindrome");
         } else {
             System.out.println("Not a Palindrome");
         }
+
+        sc.close();
     }
 }
