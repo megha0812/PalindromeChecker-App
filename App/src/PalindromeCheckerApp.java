@@ -1,36 +1,38 @@
-// version 9.0
+// version 10.0
 //author megha kadiyala
 //usecase 1: Welcome Page
 //usecase 2: Check Hardcoded String for Palindrome
 //usecase 3: Palindrome Check using String Reverse
-//usecase 9: Recursive Palindrome Checker
+//usecase 10: Case-Insensitive & Space-Ignored Palindrome
 import java.util.Scanner;
+public class IgnoreCaseSpacePalindrome {
+    public static boolean isPalindrome(String str) {
 
-public class RecursivePalindrome {
+        str = str.toLowerCase();
+        str = str.replaceAll("[^a-z0-9]", "");
 
-    public static boolean isPalindrome(String str, int start, int end) {
+        int start = 0;
+        int end = str.length() - 1;
 
-        if (start >= end) {
-            return true;
+        while (start < end) {
+
+            if (str.charAt(start) != str.charAt(end)) {
+                return false;
+            }
+
+            start++;
+            end--;
         }
-
-        if (str.charAt(start) != str.charAt(end)) {
-            return false;
-        }
-
-        return isPalindrome(str, start + 1, end - 1);
+        return true;
     }
-
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter a string: ");
+        System.out.print("Enter a sentence: ");
         String input = sc.nextLine();
 
-        boolean result = isPalindrome(input, 0, input.length() - 1);
-
-        if (result) {
+        if (isPalindrome(input)) {
             System.out.println("Palindrome");
         } else {
             System.out.println("Not a Palindrome");
