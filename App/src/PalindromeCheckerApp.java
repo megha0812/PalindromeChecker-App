@@ -1,24 +1,45 @@
-// version 3.0
+// version 6.0
 //author megha kadiyala
 //usecase 1: Welcome Page
 //usecase 2: Check Hardcoded String for Palindrome
 //usecase 3: Palindrome Check using String Reverse
-import java.util.Scanner;
-public class UseCase3PalindromeChecker {
+//usecase 6: Queue + Stack Based Palindrome Check
+import java.util.Stack;
+import java.util.Queue;
+import java.util.LinkedList;
+
+public class UC6QueueStackPalindrome {
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("=== UC3: Palindrome Check (String Reverse Method) ===");
-        System.out.print("Enter a word or sentence: ");
-        String original = scanner.nextLine();
-        String reversed = "";
-        for (int i = original.length() - 1; i >= 0; i--) {
-            reversed += original.charAt(i);   // String concatenation
+
+        String word = "madam";
+
+        Stack<Character> stack = new Stack<>();
+        Queue<Character> queue = new LinkedList<>();
+
+        for (int i = 0; i < word.length(); i++) {
+            char ch = word.charAt(i);
+            stack.push(ch);
+            queue.add(ch);
         }
-        if (original.equals(reversed)) {
-            System.out.println("Result: \"" + original + "\" is a PALINDROME.");
+
+        boolean isPalindrome = true;
+
+        while (!stack.isEmpty()) {
+
+            char fromStack = stack.pop();
+            char fromQueue = queue.remove();
+
+            if (fromStack != fromQueue) {
+                isPalindrome = false;
+                break;
+            }
+        }
+
+        if (isPalindrome) {
+            System.out.println("It is a Palindrome");
         } else {
-            System.out.println("Result: \"" + original + "\" is NOT a palindrome.");
+            System.out.println("Not a Palindrome");
         }
-        scanner.close();
     }
 }
