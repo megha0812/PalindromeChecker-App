@@ -1,24 +1,49 @@
-// version 3.0
+// version 11.0
 //author megha kadiyala
 //usecase 1: Welcome Page
 //usecase 2: Check Hardcoded String for Palindrome
 //usecase 3: Palindrome Check using String Reverse
+//usecase 11: Object-Oriented Palindrome Service
 import java.util.Scanner;
-public class UseCase3PalindromeChecker {
+
+class PalindromeChecker {
+
+    public boolean checkPalindrome(String str) {
+
+        int start = 0;
+        int end = str.length() - 1;
+
+        while (start < end) {
+
+            if (str.charAt(start) != str.charAt(end)) {
+                return false;
+            }
+
+            start++;
+            end--;
+        }
+
+        return true;
+    }
+}
+
+public class OOPPalindrome {
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("=== UC3: Palindrome Check (String Reverse Method) ===");
-        System.out.print("Enter a word or sentence: ");
-        String original = scanner.nextLine();
-        String reversed = "";
-        for (int i = original.length() - 1; i >= 0; i--) {
-            reversed += original.charAt(i);   // String concatenation
-        }
-        if (original.equals(reversed)) {
-            System.out.println("Result: \"" + original + "\" is a PALINDROME.");
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a string: ");
+        String input = sc.nextLine();
+
+        PalindromeChecker checker = new PalindromeChecker();
+
+        if (checker.checkPalindrome(input)) {
+            System.out.println("Palindrome");
         } else {
-            System.out.println("Result: \"" + original + "\" is NOT a palindrome.");
+            System.out.println("Not a Palindrome");
         }
-        scanner.close();
+
+        sc.close();
     }
 }
